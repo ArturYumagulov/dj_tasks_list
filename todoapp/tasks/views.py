@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import ToDoItem
+from .forms import AddTaskForm, ToDoItemFormModel
 
 
 def index(requests):
@@ -8,8 +9,9 @@ def index(requests):
 
 
 def tasks_list(requests):
+    f = AddTaskForm()
     all_tasks = ToDoItem.objects.all()
-    return render(requests, 'tasks/lists.html', {'tasks': all_tasks})
+    return render(requests, 'tasks/lists.html', {'tasks': all_tasks, 'form': f})
 
 
 def complete_task(requests, uid):
@@ -27,7 +29,10 @@ def delete_task(requests, uid):
 
 def add_tasks(requests):
     if requests.method == "POST":
-        desc = requests.POST['description']
-        t = ToDoItem(description=desc)
-        t.save()
+        form = ToDoItemFormModel(requests.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ToDoItemFormModel
     return redirect('/tasks/lists')
+

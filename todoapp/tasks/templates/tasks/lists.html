@@ -1,4 +1,5 @@
 {% extends "tasks/base.html" %}
+{% load static %}
 
 {% block title %}Список задач{% endblock%}
 
@@ -20,7 +21,7 @@
         </ul>
     <form action="/tasks/add_task/" method='post'>
         {% csrf_token %}
-		<input name="description" type="text" placeholder="Добавить задачу"/>
-        <button type="submit">+</button>
+        {{ form }}
+        <button class="add" type="submit">+</button>
     </form>
 {% endblock %}
