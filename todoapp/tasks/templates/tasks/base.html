@@ -1,0 +1,20 @@
+{% load static %}
+<html lang="en">
+<head>
+    <title>{% block title%}{% endblock %}</title>
+    <meta charset="UTF-8">
+        <script src="{% static 'scripts/script.js'%}"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head%}
+    {% endblock%}
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+    {% block main_content %}
+        {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

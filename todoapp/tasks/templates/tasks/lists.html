@@ -1,0 +1,26 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Список задач{% endblock%}
+
+{% block extra_head %}{% endblock %}
+
+{% block main_content%}
+
+        <ul id="todo-list">
+            {% for task in tasks %}
+            {% if task.is_completed %}
+            <li class="completed">
+                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox" disabled="disabled">{{ task }}
+            {% else %}
+            <li>
+                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox">{{ task }}
+            {% endif %}
+            <a class="remove" href="/tasks/delete/{{ task.id }}">X</a>
+            {% endfor %}
+        </ul>
+    <form action="/tasks/add_task/" method='post'>
+        {% csrf_token %}
+		<input name="description" type="text" placeholder="Добавить задачу"/>
+        <button type="submit">+</button>
+    </form>
+{% endblock %}

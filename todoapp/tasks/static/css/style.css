@@ -1,0 +1,38 @@
+h1 {
+	text-align: center;
+}
+
+.checkbox {
+	float: left;
+	margin: auto;
+}
+
+form {
+	outline: 0;
+	height: 36px;
+	margin-top: 5%;
+}
+
+.container {
+	margin: 10%;
+	background: yellow;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid black;
+	width: 20%;
+}
+
+ul {
+	padding: 0;
+	text-align: center;
+	list-style: none;
+}
+.remove {
+	float: right;
+	cursor: pointer;
+	color: black;
+}
+
+.completed {
+	text-decoration: line-through;
+}
