@@ -6,14 +6,11 @@
         <script src="{% static 'scripts/script.js'%}"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% block extra_head%}
-    {% endblock%}
 </head>
 <body>
     <div class="container">
         <div class="row">
-    {% block main_content %}
-        {% endblock %}
+    {% block main_content %}{% endblock %}
         </div>
     </div>
 </body>

@@ -19,7 +19,7 @@ form {
 	padding: 10px;
 	border-radius: 5px;
 	border: 1px solid black;
-	width: 20%;
+	width: 30%;
 }
 
 ul {
@@ -35,4 +35,10 @@ ul {
 
 .completed {
 	text-decoration: line-through;
+}
+
+button {
+	margin-top: 10px;
+	margin-left: 30%;
+	text-align: center;
 }

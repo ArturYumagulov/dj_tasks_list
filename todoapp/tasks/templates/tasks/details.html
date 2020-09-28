@@ -1,0 +1,19 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+{% block title %}Задача {{ object.id }}{% endblock %}
+{% block main_content %}
+<h1>Задача</h1>
+<p><b>Описание</b>: {{ object }}</p>
+<ul>
+    <li>
+        {% if object.is_completed %}
+        Задача выполнена
+        {% else %}
+        Задача ещё не выполнена
+        {% endif %}
+    </li>
+    <li>Создана: {{ object.created }}</li>
+    <li>Последнее изменение: {{ object.updated }}</li>
+</ul>
+<a href="{% url 'tasks:list' %}">Назад к списку</a>
+{% endblock %}

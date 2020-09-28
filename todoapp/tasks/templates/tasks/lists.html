@@ -3,7 +3,8 @@
 
 {% block title %}Список задач{% endblock%}
 
-{% block extra_head %}{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/style.css' %}">{% endblock %}
+
 
 {% block main_content%}
 
@@ -14,14 +15,14 @@
                 <input class="checkbox" data-uid="{{ task.id }}" type="checkbox" disabled="disabled">{{ task }}
             {% else %}
             <li>
-                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox">{{ task }}
+                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox"><a
+                href="{% url 'tasks:details' task.id %}">{{ task }}</a>
             {% endif %}
-            <a class="remove" href="/tasks/delete/{{ task.id }}">X</a>
+            <a class="remove" href="{% url 'tasks:delete' task.id %}">X</a>
             {% endfor %}
         </ul>
-    <form action="/tasks/add_task/" method='post'>
-        {% csrf_token %}
-        {{ form }}
-        <button class="add" type="submit">+</button>
-    </form>
+        <button class="add" type="submit" ><a href="{% url 'tasks:add_task' %}">Добавить задачу</a></button>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="{% static 'scripts/script.js'%}"></script>
+
 {% endblock %}

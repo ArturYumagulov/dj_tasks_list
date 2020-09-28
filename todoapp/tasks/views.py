@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
 from .models import ToDoItem
-from .forms import AddTaskForm, ToDoItemFormModel
+from .forms import ToDoItemFormModel
+from django.views import View
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 
 
 def index(requests):
     return HttpResponse("Hello guest")
 
 
-def tasks_list(requests):
-    f = AddTaskForm()
-    all_tasks = ToDoItem.objects.all()
-    return render(requests, 'tasks/lists.html', {'tasks': all_tasks, 'form': f})
+class TaskListView(ListView):
+    queryset = ToDoItem.objects.all()
+    context_object_name = "tasks"
+    template_name = 'tasks/lists.html'
 
 
 def complete_task(requests, uid):
@@ -21,18 +25,28 @@ def complete_task(requests, uid):
     return HttpResponse('Ok')
 
 
-def delete_task(requests, uid):
+def delete_task(request, uid):
     t = ToDoItem.objects.get(id=uid)
     t.delete()
     return redirect('/tasks/lists')
+    # return reverse('tasks:list')
 
 
-def add_tasks(requests):
-    if requests.method == "POST":
-        form = ToDoItemFormModel(requests.POST)
+class TaskCreateView(View):
+    def post(self, request, *args, **kwargs):
+        form = ToDoItemFormModel(request.POST)
         if form.is_valid():
             form.save()
-    else:
-        form = ToDoItemFormModel
-    return redirect('/tasks/lists')
+            return redirect('/tasks/lists/')
+        return render(request, 'tasks/create.html', {'form': form})
+
+    def get(self, request, *args, **kwargs):
+        form = ToDoItemFormModel()
+        return render(request, 'tasks/create.html', {'form': form})
+
+
+class TaskDetailView(DetailView):
+    model = ToDoItem
+    template_name = "tasks/details.html"
+
 
