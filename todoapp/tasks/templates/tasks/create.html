@@ -1,11 +1,11 @@
-{% extends "tasks/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Создать задачу{% endblock%}
 
 
 {% block main_content%}
-    <form action="." method='post'>
+    <form class="task-create" action="." method='post'>
         {{ form }}
         {% csrf_token %}
         <button class="add" type="submit">Add</button>

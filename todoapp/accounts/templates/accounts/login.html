@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Создать задачу{% endblock%}
+
+
+{% block main_content%}
+<h1>Вход</h1>
+    <p>Введите ваш логин.пароль</p>
+    <form class="login" action="." method='post'>
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Войти</button>
+    </form>
+{% endblock %}

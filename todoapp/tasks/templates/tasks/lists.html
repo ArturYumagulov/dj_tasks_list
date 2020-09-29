@@ -1,4 +1,4 @@
-{% extends "tasks/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Список задач{% endblock%}
@@ -12,7 +12,8 @@
             {% for task in tasks %}
             {% if task.is_completed %}
             <li class="completed">
-                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox" disabled="disabled">{{ task }}
+                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox" disabled="disabled"><a
+                    href="{% url 'tasks:details' task.id %}">{{ task }}</a>
             {% else %}
             <li>
                 <input class="checkbox" data-uid="{{ task.id }}" type="checkbox"><a

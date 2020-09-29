@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.urls import reverse
 from .models import ToDoItem
 from .forms import ToDoItemFormModel
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-
+from django.urls import reverse
 
 def index(requests):
     return HttpResponse("Hello guest")
@@ -29,7 +28,6 @@ def delete_task(request, uid):
     t = ToDoItem.objects.get(id=uid)
     t.delete()
     return redirect('/tasks/lists')
-    # return reverse('tasks:list')
 
 
 class TaskCreateView(View):
