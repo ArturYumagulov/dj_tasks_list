@@ -7,10 +7,11 @@
 {% else %}
     <p>Введите логин и пароль</p>
 {% endif %}
-<form action="." method="post" class="login">
+<form action="" method="post" class="login">
     {{ form.as_p }}
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}"/>
     <button type="submit">Войти</button>
 </form>
+<a href="{% url 'register' %}">зарегистрироваться</a>
 {% endblock %}

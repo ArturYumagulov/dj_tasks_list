@@ -5,7 +5,6 @@ from .forms import ToDoItemFormModel
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -43,9 +42,7 @@ class TaskCreateView(View):
     def post(self, request, *args, **kwargs):
         form = ToDoItemFormModel(request.POST)
         if form.is_valid():
-            print("request.user == ", request.user)
             new_task = form.save(commit=False)
-            print("new_task_owner: ", new_task)
             new_task.owner = request.user
             new_task.save()
             return redirect('/tasks/lists/')

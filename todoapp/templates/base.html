@@ -1,16 +1,36 @@
 {% load static %}
-<html lang="en">
-<head>
-    <title>{% block title%}{% endblock %}</title>
-    <meta charset="UTF-8">
-        <script src="{% static 'scripts/script.js'%}"></script>
+<html>
+    <head>
+        <title>{% block title %}Туду-дуду{% endblock %}</title>
+        <link rel="stylesheet"  href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+{% block extra_head %}{% endblock %}
 </head>
 <body>
     <div class="container">
         <div class="row">
-    {% block main_content %}{% endblock %}
+            <div class="side_bar col">
+            {% block side_bar %}
+            {% if user.is_authenticated %}
+            <p>{{ user.first_name }}</p>
+            <img src="{{ user.profile.avatar.url }}" class="img-fluid">
+            <ul>
+                <li><a href="#">профиль</a></li>
+                <li><a href="{% url 'tasks:add_task' %}">добавить задачу</a></li>
+                <li><a href="{% url 'tasks:list' %}">задачи</a></li>
+                <li><a href="{% url 'logout' %}">выйти</a></li>
+            </ul>
+                {% endif %}
+                {% endblock %}
+            </div>
+<div class="main_content col-8">
+                    {% block main_content %}
+                    {% endblock %}
+            </div>
         </div>
     </div>
 </body>
