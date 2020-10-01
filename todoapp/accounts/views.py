@@ -48,10 +48,6 @@ def register(request):
 
 @login_required
 def edit(request):
-    print("reguest:  ", request.method)
-    print(request.POST.keys())
-    # print(dir(request))
-    print(request.FILES)
 
     if request.method == "POST":
         user_form = UserEditForm(instance=request.user, data=request.POST)

@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 @login_required
@@ -35,6 +36,7 @@ def complete_task(requests, uid):
 def delete_task(request, uid):
     t = ToDoItem.objects.get(id=uid)
     t.delete()
+    messages.success(request, "Задача удалена")
     return redirect('/tasks/lists')
 
 
