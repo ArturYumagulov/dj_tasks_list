@@ -1,0 +1,38 @@
+#todo-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 20px 20px 20px 0px;
+    width: 50%;
+}
+
+
+.completed {
+	text-decoration: line-through;}
+
+
+
+.checkbox {
+    margin-right: 30px;
+}
+
+.badge  {
+    float: right;
+    margin-right: 50px;
+    padding-left: 10px;
+}
+.remove {
+    float: right;
+    /*margin-right: 50px;*/
+    color: black;
+}:hover {color: red;}
+
+li {
+    margin-top: 20px;
+}
+
+#tasks {
+    text-decoration: none;
+    color: black;
+}:hover {text-decoration: underline;}

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
+
 from .models import ToDoItem
 from .forms import ToDoItemFormModel
 from django.views import View
@@ -17,13 +19,17 @@ def index(requests):
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = ToDoItem
-    # queryset = ToDoItem.objects.all()
     context_object_name = "tasks"
     template_name = 'tasks/lists.html'
 
     def get_queryset(self):
         u = self.request.user
         return u.tasks.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        print(context)
+        return context
 
 
 def complete_task(requests, uid):
@@ -59,5 +65,22 @@ class TaskCreateView(View):
 class TaskDetailView(DetailView):
     model = ToDoItem
     template_name = "tasks/details.html"
+
+
+class TaskEditView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        t = ToDoItem.objects.get(id=pk)
+        form = ToDoItemFormModel(request.POST, instance=t)
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.owner = request.user
+            new_task.save()
+            return redirect(reverse("tasks:list"))
+        return render(request, "tasks/edit.html", {"form": form, "task": t})
+
+    def get(self, request, pk, *args, **kwargs):
+        t = ToDoItem.objects.get(id=pk)
+        form = ToDoItemFormModel(instance=t)
+        return render(request, "tasks/edit.html", {"form": form, "task": t})
 
 

@@ -13,5 +13,7 @@
     <input type="hidden" name="next" value="{{ next }}"/>
     <button type="submit">Войти</button>
 </form>
-<a href="{% url 'register' %}">зарегистрироваться</a>
+<a href="{% url 'register' %}">Зарегистрироваться</a>
+<p><a href="{% url 'password_reset' %}">Забыл пароль</a></p>
+
 {% endblock %}

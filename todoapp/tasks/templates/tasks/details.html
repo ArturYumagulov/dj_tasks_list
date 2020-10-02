@@ -12,6 +12,7 @@
     </li>
     <li><i class="far fa-calendar-alt"></i>&nbsp;Создана: {{ object.created }}</li>
     <li><i class="far fa-clock"></i>&nbsp;Последнее изменение: {{ object.updated }}</li>
+    <li><i class="far fa-edit"></i>&nbsp;<a href="{% url 'tasks:edit' pk=object.pk %}">Редактировать</a></li>
 </ul>
 <a href="{% url 'tasks:list' %}"><i class="fas fa-undo-alt"></i></a>
 

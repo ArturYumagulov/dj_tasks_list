@@ -3,26 +3,37 @@
 
 {% block title %}Список задач{% endblock%}
 
-{% block extra_head %}{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/list.css' %}">{% endblock %}
 
 
-{% block main_content%}
+{% block main_content %}
 
         <ul id="todo-list">
             {% for task in tasks %}
             {% if task.is_completed %}
             <li class="completed">
-                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox" disabled="disabled"><a
+                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox" disabled="disabled"><a id="tasks"
                     href="{% url 'tasks:details' task.id %}">{{ task }}</a>
             {% else %}
             <li>
-                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox"><a
+                <input class="checkbox" data-uid="{{ task.id }}" type="checkbox"><a id="tasks"
                 href="{% url 'tasks:details' task.id %}">{{ task }}</a>
             {% endif %}
             <a class="remove" href="{% url 'tasks:delete' task.id %}">X</a>
+                {% if task.priority == task.PRIORITY_HIGH %}
+                <span class="badge badge-danger">Высокий</span>
+                {% elif task.priority == task.PRIORITY_MEDIUM %}
+                <span class="badge badge-success">Средний</span>
+                {% elif task.priority == task.PRIORITY_LOW %}
+                <span class="badge badge-secondary">Низкий</span>
+                {% endif %}
+<!--                <a class="remove" href="{% url 'tasks:delete' task.id %}">X</a>-->
             {% endfor %}
-        </ul>
-        <button class="add" type="submit" ><a href="{% url 'tasks:add_task' %}">Добавить задачу</a></button>
+            </li>
+            </ul>
+            <button class="add" type="submit" >
+                <a href="{% url 'tasks:add_task' %}">Добавить задачу</a>
+            </button>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="{% static 'scripts/script.js'%}"></script>
 
